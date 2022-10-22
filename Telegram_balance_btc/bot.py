@@ -1,5 +1,5 @@
 import config
-import get_data_price
+from Telegram_balance_btc import get_data_price
 import telebot
 from telebot import types
 
