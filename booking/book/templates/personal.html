@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extrahead %}
+    <link rel="stylesheet" href="{% static 'css/personal.css' %}">
+{% endblock %}
+{% block content %}
+  <h1>Список моих броней:</h1>
+<form method="POST">
+      <table class="table">
+                  {% csrf_token %}
+                    <input type="hidden" name="total_tickets" value="{{ user_lock_tickets|length }}">
+                  <thead>
+                      <tr>
+                          <th>Номер рейса</th>
+                          <th>Страна вылета</th>
+                          <th>Страна прилета</th>
+                          <th>Дата и время вылета</th>
+                          <th>Дата и время прилета</th>
+                          <th>Номер посадочного места</th>
+                          <th>Выбрать</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      {% for ticket in user_lock_tickets %}
+                      <tr>
+                          <td>{{ ticket.id_flight }}</td>
+                          <td>{{ ticket.country_source }}</td>
+                          <td>{{ ticket.country_target }}</td>
+                          <td>{{ ticket.departure_time|date:"Y-m-d H:i"  }}</td>
+                          <td>{{ ticket.arrival_time|date:"Y-m-d H:i" }}</td>
+                          <td>{{ ticket.seat_number }}</td>
+                          <td><input type="checkbox" name="ticket_lock" value="{{ ticket.id_ticket }}"></td>
+                      </tr>
+                      {% endfor %}
+                  </tbody>
+              </table>
+    <button type="submit">Отменить бронь</button>
+    </form>
+{% endblock %}

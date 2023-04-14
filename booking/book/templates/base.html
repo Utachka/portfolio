@@ -1,0 +1,79 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Booking{% endblock %}</title>
+  {% block head %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/meny.css' %}">
+    {% block extrahead %}{% endblock %}
+  {% endblock %}
+</head>
+<body>
+  <header>
+    <h1>Booking</h1>
+  </header>
+
+  <div class="top-bar">
+    <nav>
+      <ul>
+        <li>
+          <a href="{% url 'index' %}" title="Главная" class="{% if request.path == '/' %}active{% endif %}">
+            Главная
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'information' %}" title="Информация" class="{% if request.path == '/information/' %}active{% endif %}">
+            Информация
+          </a>
+        </li>
+        {% if user.is_authenticated %}
+        <li>
+          <a href="{% url 'personal' %}" title="Личный кабинет" class="{% if request.path == '/personal/' %}active{% endif %}">
+            Личный кабинет
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'logout' %}" title="Выйти">
+            Выйти
+          </a>
+        </li>
+        {% else %}
+        <li>
+          <a href="{% url 'login' %}" title="Войти">
+            Войти
+          </a>
+        </li>
+        {% endif %}
+      </ul>
+    </nav>
+  </div>
+
+  <main>
+    {% if user.is_authenticated %}
+      {% block content %}
+      {% endblock %}
+
+      {% block content_flight_list %}
+      {% endblock %}
+    {% else %}
+      {% block content_login %}
+      {% endblock %}
+
+      {% block contentregister %}
+      {% endblock %}
+    {% endif %}
+  </main>
+
+  <footer>
+    <div class="container">
+    </div>
+  </footer>
+
+  {% block extrabody %}{% endblock %}
+
+  <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>
