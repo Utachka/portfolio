@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+<h1>Личный кабинет</h1>
+{% block content %}
+  <h1>Забронированные билеты</h1>
+    <form method="post">
+
+    {% csrf_token %}
+
+      <table>
+          <thead>
+          <tr>
+              <th>Номер рейса</th>
+              <th>Номер билета</th>
+              <th>Номер посадочного места</th>
+              <th>Дата вылета</th>
+              <th>Дата посадки</th>
+          </tr>
+          </thead>
+          <tbody>
+              {% for booking in user_booking %}
+                  <tr>
+                      <td>{{ booking.id_flight }}</td>
+                      <td>{{ booking.id_ticket }}</td>
+                      <td> 'Без места' </td>
+                      <td>{{ booking.departure_time|date:'Y-m-d H:i:s' }}</td>
+                      <td>{{ booking.arrival_time|date:'Y-m-d H:i:s' }}</td>
+                      <td>
+                          <input type="checkbox" name="selected_tickets" value="{{ booking.id_ticket }}">
+                      </td>
+                  </tr>
+              {% endfor %}
+          </tbody>
+      </table>
+      <button type="submit">Отменить бронь</button>
+    </form>
+{% endblock %}

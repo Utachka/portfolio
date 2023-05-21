@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<form method="post" action="{% url 'login' %}">
+  {% csrf_token %}
+
+    <label for="id_username"><b>login</b></label>
+    <input type="text" for="id_username" placeholder="Enter login" name="username" required>
+    <br>
+    <label for="id_password"><b>Password</b></label>
+    <input type="password" id="id_password" placeholder="Enter Password" name="password" required>
+    <button type="submit" class="registerbtn">Войти</button>
+
+  <div class="container signin">
+    <p>Если у вас еще нет аккаунта, вы можете <a href="/auth/register">Зарегистрироваться</a>.</p>
+  </div>
+</form>
+{% endblock %}

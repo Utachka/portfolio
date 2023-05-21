@@ -1,0 +1,32 @@
+<!-- index.html -->
+
+{% extends 'base.html' %}
+{% block content %}
+<h1>Index.html</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Номер рейса</th>
+        <th>Страна отправления</th>
+        <th>Страна прибытия</th>
+        <th>Время отправления</th>
+        <th>Время прибытия</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for flight in flights %}
+        <tr>
+            <td>{{ flight.id_flight }}</td>
+            <td>{{ flight.country_source }}</td>
+            <td>{{ flight.country_target }}</td>
+            <td>{{ flight.departure_time|date:'Y-m-d H:i:s' }}</td>
+            <td>{{ flight.arrival_time|date:'Y-m-d H:i:s' }}</td>
+            <td><a href="/flight_detail/{{ flight.id_flight }}">Перейти</a></td>
+
+<!--            <td><a href="{% url 'ticket-list-by-flight' flight.id_flight %}">Перейти</a></td>-->
+<!--            <td><a href="/flights/{{ flight.id_flight }}/tickets/">Перейти</a></td>-->
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

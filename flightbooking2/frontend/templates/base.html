@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <title>My Website</title>
+</head>
+<body>
+    <header>
+        {% if user.is_authenticated %}
+            <p>Welcome, {{ user.username }}!</p>
+            <br>
+            <p><a href="/auth/logout/">Выйти</a></p>
+        {% else %}
+            <p><a href="/auth/login/">Войти</a></p>
+        {% endif %}
+        <nav>
+            <ul>
+                <li><a href="/">Главная</a></li>
+                {% if user.is_authenticated %}
+                <li><a href="/user_page/{{ user.username }}">Личный кабинет</a></li>
+                {% endif %}
+<!--                <li><a href="/flights/">Список рейсов</a></li>-->
+<!--                <li><a href="/contact/">Contact</a></li>-->
+            </ul>
+        </nav>
+
+    </header>
+
+    <main>
+        {% block content %}
+
+        {% endblock %}
+    </main>
+
+    <footer>
+        <!-- Footer content here -->
+    </footer>
+</body>
+</html>
