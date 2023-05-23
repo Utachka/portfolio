@@ -1,0 +1,101 @@
+openapi: 3.0.0
+info:
+  title: gateway API
+  version: 1.0.0
+paths:
+  /flights/:
+    get:
+      summary: Получение списка всех перелетов
+      responses:
+        '200':
+          description: OK
+  /flights/{pk}/:
+    get:
+      summary: Получение информации о конкретном перелете
+      parameters:
+        - in: path
+          name: pk
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: OK
+  /tickets/:
+    get:
+      summary: Получение списка всех билетов
+      responses:
+        '200':
+          description: OK
+  /bookings/:
+    get:
+      summary: Получение списка всех бронирований
+      responses:
+        '200':
+          description: OK
+  /bookings/{pk}/:
+    get:
+      summary: Получение информации о конкретном бронировании
+      parameters:
+        - in: path
+          name: pk
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: OK
+  /bookingQuotas/:
+    get:
+      summary: Получение списка квот бронирования
+      responses:
+        '200':
+          description: OK
+  /bookingQuotas/{pk}/:
+    get:
+      summary: Получение информации о конкретной квоте бронирования
+      parameters:
+        - in: path
+          name: pk
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: OK
+  /flights/{pk}/tickets/:
+    get:
+      summary: Получение списка билетов для конкретного перелета
+      parameters:
+        - in: path
+          name: pk
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: OK
+  /gateway/{username}/bookingTickets/:
+    get:
+      summary: Получение списка бронированных билетов для указанного пользователя
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: OK
+  /gateway/bookingQuotasByUser/{username}/:
+    get:
+      summary: Получение списка квот бронирования для указанного пользователя
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: OK

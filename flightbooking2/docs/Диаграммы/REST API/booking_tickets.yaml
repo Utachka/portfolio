@@ -1,0 +1,261 @@
+openapi: 3.0.0
+info:
+  title: booking_tickets API
+  version: 1.0.0
+paths:
+  /api/bookingQuotas/:
+    get:
+      summary: Get a list of booking quotas
+      operationId: bookingQuotaList
+      tags:
+        - Booking Quotas
+      responses:
+        200:
+          description: Successful operation
+
+  /api/bookingQuotas/{pk}/:
+    get:
+      summary: Get a booking quota by ID
+      operationId: bookingQuotaDetail
+      tags:
+        - Booking Quotas
+      parameters:
+        - name: pk
+          in: path
+          description: ID of the booking quota
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Successful operation
+
+  /api/bookingQuotasByUser/{username}/:
+    get:
+      summary: Get booking quotas by username
+      operationId: bookingQuotaByUser
+      tags:
+        - Booking Quotas
+      parameters:
+        - name: username
+          in: path
+          description: Username of the user
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Successful operation
+
+  /api/bookings/:
+    get:
+      summary: Get a list of bookings
+      operationId: bookingList
+      tags:
+        - Bookings
+      responses:
+        200:
+          description: Successful operation
+
+    post:
+      summary: Create a new booking
+      operationId: createBooking
+      tags:
+        - Bookings
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Booking'
+      responses:
+        201:
+          description: Booking created successfully
+
+  /api/bookings/{pk}/:
+    get:
+      summary: Get a booking by ID
+      operationId: bookingDetail
+      tags:
+        - Bookings
+      parameters:
+        - name: pk
+          in: path
+          description: ID of the booking
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Successful operation
+
+    put:
+      summary: Update a booking by ID
+      operationId: updateBooking
+      tags:
+        - Bookings
+      parameters:
+        - name: pk
+          in: path
+          description: ID of the booking
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Booking'
+      responses:
+        200:
+          description: Booking updated successfully
+
+    delete:
+      summary: Delete a booking by ID
+      operationId: deleteBooking
+      tags:
+        - Bookings
+      parameters:
+        - name: pk
+          in: path
+          description: ID of the booking
+          required: true
+          schema:
+            type: integer
+      responses:
+        204:
+          description: Booking deleted successfully
+
+  /api/bookingTickets/:
+    get:
+      summary: Get a list of booking tickets
+      operationId: bookingTicketList
+      tags:
+        - Booking Tickets
+      responses:
+        200:
+          description: Successful operation
+
+  /api/bookingTickets/{pk}/:
+    get:
+      summary: Get a booking ticket by ID
+      operationId: bookingTicketDetail
+      tags:
+        - Booking Tickets
+      parameters:
+        - name: pk
+          in: path
+          description: ID of the booking ticket
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Successful operation
+
+    put:
+      summary: Update a booking ticket by ID
+      operationId: updateBookingTicket
+      tags:
+        - Booking Tickets
+      parameters:
+        - name: pk
+          in: path
+          description: ID of the booking ticket
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookingTicket'
+      responses:
+        200:
+          description: Booking ticket updated successfully
+
+    delete:
+      summary: Delete a booking ticket by ID
+      operationId: deleteBookingTicket
+      tags:
+        - Booking Tickets
+      parameters:
+        - name: pk
+          in: path
+          description: ID of the booking ticket
+          required: true
+          schema:
+            type: integer
+      responses:
+        204:
+          description: Booking ticket deleted successfully
+
+  /api/flights/{id_flight}/bookingTickets/:
+    get:
+      summary: Get booking tickets by flight
+      operationId: bookingTicketsByFlight
+      tags:
+        - Booking Tickets
+      parameters:
+        - name: id_flight
+          in: path
+          description: ID of the flight
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Successful operation
+
+  /api/user/{username}/bookingTickets/:
+    get:
+      summary: Get booking tickets by user
+      operationId: bookingTicketsByUser
+      tags:
+        - Booking Tickets
+      parameters:
+        - name: username
+          in: path
+          description: Username of the user
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Successful operation
+
+components:
+  schemas:
+    BookingQuota:
+      type: object
+      properties:
+        id:
+          type: integer
+        username:
+          type: string
+        max_quota:
+          type: integer
+        use_quota:
+          type: integer
+
+    Booking:
+      type: object
+      properties:
+        id:
+          type: integer
+        user:
+          type: string
+        flight:
+          type: integer
+
+    BookingTicket:
+      type: object
+      properties:
+        id:
+          type: integer
+        booking:
+          type: integer
+        seatNumber:
+          type: string
